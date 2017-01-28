@@ -3,13 +3,6 @@ class User {
 		this.email = "";
 		this.name = "";
 		this.password = "";
-
-	}
-
-	static createNewUser(name, email, password) {
-		let newUser = new User();
-		newUser.name = name;
-		newUser.email = email
 	}
 
 	get userName() {
@@ -27,5 +20,4 @@ class User {
 	set userEmail(newEmail) {
 		this.email = newEmail;
 	}
-
 }
