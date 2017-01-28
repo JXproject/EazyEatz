@@ -21,3 +21,5 @@ class User {
 		this.email = newEmail;
 	}
 }
+
+module.exports = User;

@@ -27,7 +27,7 @@ let app = express();
 	));
  */
 
-User.createNewUser("Nayef Ahmed", "sdsdfasdfasdfas@yahoo.ca", "testPassword", function(err, user) {
+User.createNewUser("Nayef Ahmed", "sdsdfakgghfjksdfasdfas@yahoo.ca", "testPassword", function(err, user) {
 	if (err) {
 		console.log(err);
 	}

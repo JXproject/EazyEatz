@@ -1,4 +1,4 @@
-require('./User');
+let User = require('./User');
 let bcrypt = require('bcrypt');
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
@@ -16,19 +16,17 @@ let UserSchema = new Schema({
 	userId: {type: String, unique: true, index: true},
 	name: String,
 	password: String,
-	payment: {type: paymentModel, default: null}
+	payment: {type: Schema.Types.ObjectId, ref: "Payment", default: null}
 });
 let userModel = mongoose.model("User", UserSchema);
 
-
-
-let billSchema = new Schema({
-	billId: {type: Number, unique: true, index: true},
-	restaurant: RestaurantSchema,
-	items: [ItemSchema],
-	users: [UserSchema]
-});
-let billModel = mongoose.model('Bill', billSchema);
+/*let billSchema = new Schema({
+ billId: {type: Number, unique: true, index: true},
+ restaurant: RestaurantSchema,
+ items: [ItemSchema],
+ users: [UserSchema]
+ });
+ let billModel = mongoose.model('Bill', billSchema);*/
 
 module.exports.createNewUser = function (name, email, password, callBack) {
 	let newUser = new User();
@@ -55,6 +53,6 @@ module.exports.createNewUser = function (name, email, password, callBack) {
 	);
 };
 
-module.exports.findOne = function (email) {
-
+module.exports.validateUser = function (email, password) {
+	userModel.findOne({email: email});
 }
