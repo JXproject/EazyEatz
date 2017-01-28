@@ -10,8 +10,8 @@ let app = express();
 
 /*passport.use(
 	new LocalStrategy(
-		function (username, password, done) {
-			User.getUser(username, function(err, user) {
+		function (email, password, done) {
+			User.getUser(email, function (err, user) {
 				if (err) {
 					return done(err)
 				}
@@ -24,17 +24,12 @@ let app = express();
 				return done(null, user);
 			});
 		}
-	));
- */
+	));*/
 
-User.createNewUser("Nayef Ahmed", "sdsdfakgghfjksdfasdfas@yahoo.ca", "testPassword", function(err, user) {
-	if (err) {
-		console.log(err);
-	}
 
-	console.log(user);
+User.getUser("chase@chasehaddleton.com", function(err, cb) {
+
 });
-
 
 
 app.set('port', process.env.PORT || 3000);
