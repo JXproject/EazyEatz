@@ -5,7 +5,12 @@ let logger = require('morgan');
 let bodyParser = require('body-parser');
 
 let app = express();
-let uuid = require('uuid/v4');
+
+let   passport = require('passport')
+    , connect =  require('connect')
+    , util = require('util')
+    , LocalStrategy = require('passport-localapikey').Strategy;
+
 
 /*
 passport.use(
@@ -54,7 +59,6 @@ Conn.createNewUser("Chase Haddleton", "chase@cool.ca", "testPassword", "124 Long
 
 Conn.createNewRestaurant("Bob's Burgers", "987 The Stree Ave", [])*/
 
-
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -68,4 +72,77 @@ app.set('view engine', 'pug');
 
 app.listen(app.get('port'), function () {
 	console.log('Express server listening on port ' + app.get('port'));
+});
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+    findById(id, function (err, user) {
+        done(err, user);
+    });
+});
+
+// Use the LocalStrategy within Passport.
+//   Strategies in passport require a `verify` function, which accept
+//   credentials (in this case, a username and password), and invoke a callback
+//   with a user object.  In the real world, this would query a database;
+//   however, in this example we are using a baked-in set of users.
+passport.use(new LocalStrategy(
+    function(apikey, done) {
+        // asynchronous verification, for effect...
+        process.nextTick(function () {
+
+            // Find the user by username.  If there is no user with the given
+            // username, or the password is not correct, set the user to `false` to
+            // indicate failure and set a flash message.  Otherwise, return the
+            // authenticated `user`.
+            findByApiKey(apikey, function(err, user) {
+                if (err) { return done(err); }
+                if (!user) { return done(null, false, { message: 'Unknown apikey : ' + apikey }); }
+                if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+                return done(null, user);
+            })
+        });
+    }
+));
+
+// Initialize Passport!  Also use passport.session() middleware, to support
+// persistent login sessions (recommended).
+app.use(passport.initialize());
+app.use(express.static(__dirname + '/../../public'));
+
+
+app.get('/', function(req, res){
+    res.json({ message: "Authenticated" })
+});
+
+app.get('/api/account', ensureAuthenticated, function(req, res){
+    res.json({ message: "Authenticated" })
+});
+
+app.get('/api/unauthorized', function(req, res){
+    res.json({ message: "Authentication Error" })
+});
+
+// POST /login
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+
+app.post('/api/authenticate',
+    passport.authenticate('localapikey', { failureRedirect: '/api/unauthorized', failureFlash: true }),
+    function(req, res) {
+        res.json({ message: "Authenticated" })
+    });
+
+// POST /login
+//   This is an alternative implementation that uses a custom callback to
+//   acheive the same functionality.
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
 });
