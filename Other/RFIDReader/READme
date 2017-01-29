@@ -1,0 +1,1 @@
+Library files need to be under the Arduino directory in order for the code to recognize the library.
