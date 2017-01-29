@@ -1,4 +1,5 @@
 let User = require('./User');
+let Payment = require('./Payment');
 let Restaurant = require('./Restaurant');
 let uuidv1 = require('uuid/v1');
 let uuidv4 = require('uuid/v4');
@@ -63,6 +64,12 @@ module.exports.createNewUser = function (name, email, password, address, nameOnC
 	newUser.name = name;
 	newUser.email = email;
 	newUser.apiKey = uuidv4();
+	let pay = new Payment();
+	pay.address = address;
+	pay.nameOnCard = nameOnCard;
+	pay.cardNumber = cardNumber;
+	pay.ccv = ccv;
+	newUser.payment = pay;
 
 	bcrypt.hash(password, 15).then(function (hash) {
 			let userSchema = new userModel({
@@ -95,7 +102,7 @@ module.exports.createNewRestaurant = function (name, address, menu, beacons, cal
 	newRestaurant.menu = menu;
 
 	let beacArr = [];
-	for(let item in beacons) {
+	for (let item in beacons) {
 		beacArr.push(new beaconSchema({
 			beaconId: item.id,
 			location: item.location
@@ -103,7 +110,7 @@ module.exports.createNewRestaurant = function (name, address, menu, beacons, cal
 	}
 
 	let menuArr = [];
-	for(let item in menu) {
+	for (let item in menu) {
 		menuArr.push(new menuItemSchema({
 			name: item.name,
 			category: item.category,

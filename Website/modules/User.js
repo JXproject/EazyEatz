@@ -42,6 +42,14 @@ class User {
 		this._apiKey = value;
 	}
 
+	get payment() {
+		return this._payment;
+	}
+
+	set payment(value) {
+		this._payment = value;
+	}
+
 	validPassword(password) {
 		bcrypt.compare(this._password, password).then(function (res) {
 			return res;
