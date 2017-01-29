@@ -1,4 +1,4 @@
-#EasyEats
+#EazyEatz
 
 By: Nayef Ahmed, Chase Haddleton, Ali Toyserkani, Jack Xu
 
