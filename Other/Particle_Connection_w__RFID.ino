@@ -1,6 +1,5 @@
 
-typedef int Data;
-unqualified id;
+//typedef int Data;
 
 void setup() {
   pinMode(13, OUTPUT); //Set the LED pin as an output
@@ -10,7 +9,7 @@ void setup() {
   delay(2000);
 }
 void loop() {
-  while(Serial.available()) // if anything is in the Serial Buffer, run this code
+  while(Serial.available()&gt;0) // if anything is in the Serial Buffer, run this code
   {
   Data = Serial.read(); // Read whats in the Serial buffer and store to DATA
   }
