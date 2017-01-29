@@ -1,4 +1,5 @@
 let bcrypt = require('bcrypt');
+let Payment = require('./Payment');
 
 class User {
 	constructor() {
@@ -6,6 +7,7 @@ class User {
 		this._name = "";
 		this._password = "";
 		this._apiKey = "";
+		this._payment = new Payment();
 	}
 
 	get email() {
