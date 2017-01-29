@@ -1,9 +1,9 @@
 class Restaurant {
 	constructor() {
 		this._address = "";
-		this._nameOnCard = "";
-		this._cardNumber = "";
-		this._ccv = "";
+		this._menu = [];
+		this._beacons = [];
+		this._name = "";
 	}
 
 	get address() {
@@ -14,28 +14,28 @@ class Restaurant {
 		this._address = value;
 	}
 
-	get nameOnCard() {
-		return this._nameOnCard;
+	get menu() {
+		return this._menu;
 	}
 
-	set nameOnCard(value) {
-		this._nameOnCard = value;
+	set menu(value) {
+		this._menu = value;
 	}
 
-	get cardNumber() {
-		return this._cardNumber;
+	get beacons() {
+		return this._beacons;
 	}
 
-	set cardNumber(value) {
-		this._cardNumber = value;
+	set beacons(value) {
+		this._beacons = value;
 	}
 
-	get ccv() {
-		return this._ccv;
+	get name() {
+		return this._name;
 	}
 
-	set ccv(value) {
-		this._ccv = value;
+	set name(value) {
+		this._name = value;
 	}
 }
 

@@ -47,13 +47,13 @@ let restaurantSchema = new Schema({
 	name: {type: String, unique: true, index: true},
 	address: String,
 	menu: [menuItemSchema],
-	beacons: [{type: Schema.Types.ObjectId, ref: "Beacon"}]
+	beacons: String
 });
 let restaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
 let billSchema = new Schema({
 	billId: {type: String, unique: true, index: true},
-	restaurant: restaurantSchema,
+	bId: String,
 	items: [itemSchema],
 	users: [{type: Schema.Types.ObjectId, ref: "User"}]
 });
@@ -95,37 +95,21 @@ module.exports.createNewUser = function (name, email, password, address, nameOnC
 	);
 };
 
-module.exports.createNewRestaurant = function (name, address, menu, beacons, callBack) {
+module.exports.createNewRestaurant = function (name, address, menu, beacon, callBack) {
 	let newRestaurant = new Restaurant();
 	newRestaurant.name = name;
 	newRestaurant.address = address;
 	newRestaurant.menu = menu;
+	newRestaurant.beacon = beacon;
 
-	let beacArr = [];
-	for (let item in beacons) {
-		beacArr.push(new beaconSchema({
-			beaconId: item.id,
-			location: item.location
-		}))
-	}
-
-	let menuArr = [];
-	for (let item in menu) {
-		menuArr.push(new menuItemSchema({
-			name: item.name,
-			category: item.category,
-			price: item.price
-		}))
-	}
-
-	let userSchema = new restaurantSchema({
+	let restaurantSchema = new restaurantModel({
 		name: name,
 		address: address,
 		menu: menu,
-		beacons: beacArr
+		beacon: beacon
 	});
 
-	userSchema.save(function (err) {
+	restaurantSchema.save(function (err) {
 		if (err) {
 			console.log(err);
 		}
@@ -136,6 +120,16 @@ module.exports.createNewRestaurant = function (name, address, menu, beacons, cal
 
 module.exports.restaurantByBeaconID = function (bID) {
 	restaurantModel.findOne({beaconId: bID}, 'name address menu', function (err, restaurant) {
+		if (err) {
+			return err;
+		}
+
+		return restaurant;
+	})
+};
+
+module.exports.joinBillByBeaconID = function (bID, apiKey) {
+	billModel.findOneAndUpdate({beaconId: bID}, 'name address menu', function (err, restaurant) {
 		if (err) {
 			return err;
 		}

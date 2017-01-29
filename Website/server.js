@@ -117,21 +117,29 @@ passport.use("apiKeyStrat",
 			});
 		}));
 
-function ensureAuthenticated(req, res, next) {
-	console.log(req);
-	if (req.isAuthenticated()) {
-		return next();
-	}
-	res.redirect('/api/unauthorized')
-}
-
 app.get('/', function (req, res) {
 	res.json({message: "Authenticated"})
 });
 
-app.get('/api/account', ensureAuthenticated, function (req, res) {
-	res.json(Conn.getUser(req.apiKey));
-});
+app.get('/api/account', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		res.json(Conn.getUser(req.apiKey));
+	});
+
+app.post('/api/account/add', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		Conn.createNewUser(req.body.name, req.body.email, req.body.password, req.body.address, req.body.nameOnCard,
+			req.body.cardNumber, req.body.ccv, function (err, out) {
+				res.json(out);
+			})
+	});
+
+app.post('/api/restaurant/add', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		Conn.createNewRestaurant(req.body.name, req.body.address, req.body.menu, req.body.beacons, function (err, out) {
+			res.json(out);
+		});
+	});
 
 app.get('/api/unauthorized', function (req, res) {
 	res.json({message: "Unauthorized"});
