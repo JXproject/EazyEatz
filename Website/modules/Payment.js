@@ -1,11 +1,10 @@
-class Payment{
-	constructor(){
+class Payment {
+	constructor() {
 		this._address = "";
 		this._nameOnCard = "";
 		this._cardNumber = "";
 		this._ccv = "";
 	}
-
 
 	get address() {
 		return this._address;
