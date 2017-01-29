@@ -137,13 +137,13 @@ module.exports.restaurantByBeaconID = function (bID) {
 	})
 };
 
-module.exports.validAPIKey = function (key) {
-	userModel.findOne({apikey: key}, 'name email apikey password payment', function (err, user) {
+module.exports.validAPIKey = function (key, callback) {
+	userModel.findOne({apikey: key}, 'name email apikey payment', function (err, user) {
 		if (err) {
-			return err;
+			return callback(err);
 		}
 
-		return true;
+		return callback(null, user);
 	});
 };
 
@@ -166,5 +166,17 @@ module.exports.getUser = function (email) {
 		}
 
 		return user;
+	});
+};
+
+module.exports.getUserById = function (email, callback) {
+	userModel.findOne({email: email}, 'name email apikey password payment', function (err, user) {
+		console.log(user);
+
+		if (err) {
+			return callback(err);
+		}
+
+		return callback(null, user);
 	});
 };
