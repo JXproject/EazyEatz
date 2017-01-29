@@ -11,7 +11,7 @@ export default class Login extends Component{
             style={styles.logo}
             source={require("../src/img/banana.png")}
             />
-            <Text style={styles.title}> Eazy - Eatz </Text>
+            <Text style={styles.title}> Eazy - Eaty </Text>
           </View>
           <View style={styles.formContainer}>
               <LoginForm/>
@@ -20,7 +20,6 @@ export default class Login extends Component{
     );
   }
 }
-
 const styles =StyleSheet.create({
   container:{
     flex:1,

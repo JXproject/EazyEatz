@@ -1,17 +1,20 @@
 import React,{Component} from 'react';
-import {  StyleSheet, View,Text,Button} from 'react-native';
+import {  StyleSheet, View,Text,Button,Modal,TouchableHighlight,} from 'react-native';
 
 import Listcard from './ListCard';
+import Total from './ListCard';
 
+var ccccrd=<Listcard/>;
 
+var cds=0;
 export default class Menu extends Component{
   constructor(props) {
     super(props);
-    this.state = { total: "00.00"};
-    // this.update = this.update.bind(this);
+    this.state = { total: "00.00",modalVisible: false};
   }
-  update(){
-      // this.setState({total:counts.reduce((a,b)=>a+b)});
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   render(){
@@ -33,7 +36,7 @@ export default class Menu extends Component{
       <View style={styles.lineLight}>
       </View>
       <View style={styles.list}>
-      <Listcard/>
+      {ccccrd}
       </View>
 
       <View style={styles.lineLight}>
@@ -41,14 +44,64 @@ export default class Menu extends Component{
       <View style={styles.footer}>
       <Text style={{width:80, fontSize:18, fontWeight:"200"}}> TOTAL: $ </Text>
       <Text style={{width:120, fontSize:18, fontWeight:"200"}}> {this.state.total} </Text>
+
       <Button
-      onPress={this.onPressLearnMore}
+      onPress={() => {
+        this.setModalVisible(true)
+      }}
       title="OVERVIEW"
       color="black"
       />
       </View>
 
+      <Modal
+      animationType={"fade"}
+      transparent={false}
+      visible={this.state.modalVisible}
+      onRequestClose={() => {alert("Modal has been closed.")}}
+      >
+        <View style={{marginTop: 22}}>
+        </View>
+        <View style={styles.statusbar}>
+        </View>
+        <View style={styles.restName}>
+        <Text style={{ fontSize:30, fontFamily:"GillSans-SemiBold"}}>
+      Family Risto</Text>
+        </View>
+
+        <View style={styles.line}>
+        </View>
+        <View style={styles.nav}>
+      <Text style={{fontSize:20, fontFamily:"GillSans-Light"}}> SELECTED </Text>
+        </View>
+
+        <View style={styles.lineLight}>
+        </View>
+        <View style={styles.list}>
+        {ccccrd}
+        </View>
+
+        <View style={styles.lineLight}>
+        </View>
+      <View style={styles.footer}>
+      <Text style={{width:80, fontSize:18, fontWeight:"200"}}> TOTAL: $ </Text>
+      <Text style={{width:80, fontSize:18, fontWeight:"200"}}> {this.state.total} </Text>
+
+      <Button
+      onPress={() => {
+        this.setModalVisible(!this.state.modalVisible)
+      }}
+      title="CLOSE"
+      color="black"
+      />
+
+        <Text style={{marginLeft: 20, width:80, fontSize:18, fontWeight:"200"}}>CONFIRM</Text>
       </View>
+      </Modal>
+
+      </View>
+
+
     );
   }
 }

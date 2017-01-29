@@ -5,16 +5,17 @@ import {
   Text,
   View
 } from 'react-native';
-// import Login from './src/log-in.js';
- import Menu from './src/menu.js';
+import Login from './src/log-in.js';
+ 
 export default class EasyLife extends Component {
+
   render() {
     return (
-      // <Login />
-      <Menu />
+      <Login />
     );
   }
 }
+
 
 const styles = StyleSheet.create({
 

@@ -1,19 +1,30 @@
 import React,{Component} from 'react';
-import {  StyleSheet, View,Text,Button,ScrollView,Animated} from 'react-native';
-
+import {  StyleSheet, View, Text, Button,ScrollView,Animated,AppRegistry} from 'react-native';
 
 var list=[];
-for(var i2=0;i2<6;i2++){
-  var data={name:"Bacon & Eggs", price: "9.99", description:"a dish consisting of fried or grilled slices of bacon and one or more fried eggs", ind:i2};
-  list.push(data);
-}
+var data={name:"Bacon & Eggs", price: "9.99", description:"a dish consisting of fried or grilled slices of bacon and one or more fried eggs", ind:0};
+list.push(data);
+data={name: "French Onion Soup",price: "7.95", description: "A rich beef and onion broth, topped off with garlic croutons and melted swiss cheese", ind:1};
+list.push(data);
+data={name: "Tacos Carnitas",price: "10.99", description: "Two soft fresh corn tortillas filled with seasoned chunks of slow roasted pork, chopped onions & cilantro topped with roasted salsa verda", ind:2};
+list.push(data);
+data={name: "Pan Roasted Chicken Breast",price: "13.98", description: "garden greens, seasonal vegetables, toasted pumpkin seeds, grilled chicken, ranch dressing", ind:3};
+list.push(data);
+data={name:"Bacon & Eggs", price: "9.99", description:"a dish consisting of fried or grilled slices of bacon and one or more fried eggs", ind:4};
+list.push(data);
+
+var Total=[5];
+Total.fill(0);
 
 class Card extends Component {
   constructor(props) {
     super(props);
-    this.state = {quantity:0,fadeAnim: new Animated.Value(0)};
+    this.state = {quantity:0,fadeAnim: new Animated.Value(0),totot:0};
     this.increment = this.increment.bind(this);
     this.decrement = this.decrement.bind(this);
+  }
+  getter(){
+    return this.state.totot;
   }
   componentDidMount() {
     Animated.timing(
@@ -24,11 +35,18 @@ class Card extends Component {
 
   increment(){
     if(this.state.quantity<10)
-      this.setState({quantity:this.state.quantity+1});
+    this.setState({quantity:this.state.quantity+1});
+    Total[this.props.val.ind]=this.state.quantity;
+    var ttt=Total[0]+Total[1]+Total[2]+Total[3]+Total[4];
+      this.setState({totot:ttt});
   }
   decrement(){
     if(this.state.quantity>0)
-      this.setState({quantity:this.state.quantity-1});
+    this.setState({quantity:this.state.quantity-1});
+    Total[this.props.val.ind]=this.state.quantity;
+    var ttt=0;
+var ttt=Total[0]+Total[1]+Total[2]+Total[3]+Total[4];
+      this.setState({totot:ttt});
   }
 
   render() {
@@ -62,11 +80,11 @@ class Card extends Component {
       />
       </View>
       </View>
-
       </Animated.View>
     );
   }
 }
+
 
 export default class Listcard extends Component{
   render(){
@@ -111,5 +129,10 @@ const styles =StyleSheet.create({
   selection:{
     marginLeft:220,
     flexDirection:'row',
+  },
+  outer:{
+    height:10,
+    backgroundColor:"green"
   }
 });
+AppRegistry.registerComponent('Lists', ()  => Listcard);
