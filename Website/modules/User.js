@@ -1,24 +1,51 @@
+let bcrypt = require('bcrypt');
+let Payment = require('./Payment');
+
 class User {
 	constructor() {
-		this.email = "";
-		this.name = "";
-		this.password = "";
+		this._email = "";
+		this._name = "";
+		this._password = "";
+		this._apiKey = "";
+		this._payment = new Payment();
 	}
 
-	get userName() {
-		return this.name;
+	get email() {
+		return this._email;
 	}
 
-	set userName(newName) {
-		this.name = newName;
+	set email(value) {
+		this._email = value;
 	}
 
-	get userEmail() {
-		return this.email;
+	get name() {
+		return this._name;
 	}
 
-	set userEmail(newEmail) {
-		this.email = newEmail;
+	set name(value) {
+		this._name = value;
+	}
+
+	get password() {
+		return this._password;
+	}
+
+	set password(value) {
+		this._password = value;
+	}
+
+	get apiKey() {
+		return this._apiKey;
+	}
+
+	set apiKey(value) {
+		this._apiKey = value;
+	}
+
+	validPassword(password) {
+		bcrypt.compare(this._password, password).then(function (res) {
+			return res;
+		});
 	}
 }
 
