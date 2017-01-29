@@ -11,7 +11,7 @@ export default class Login extends Component{
             style={styles.logo}
             source={require("../src/img/banana.png")}
             />
-            <Text style={styles.title}> Idea Destroyed Here </Text>
+            <Text style={styles.title}> Eazy - Eaty </Text>
           </View>
           <View style={styles.formContainer}>
               <LoginForm/>
@@ -23,7 +23,7 @@ export default class Login extends Component{
 const styles =StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#3498db'
+    backgroundColor:'#FAF9F7'
   },
   logoContainer:{
     alignItems:'center',
@@ -35,8 +35,9 @@ const styles =StyleSheet.create({
     height:100
   },
   title:{
-    color:'#FFF',
+    color:'black',
     marginTop:10,
+    fontSize:30,
     width:160,
     textAlign:'center',
     opacity:0.9

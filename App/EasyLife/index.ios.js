@@ -5,33 +5,19 @@ import {
   Text,
   View
 } from 'react-native';
-import Login from './src/log-in.js';
-
+// import Login from './src/log-in.js';
+ import Menu from './src/menu.js';
 export default class EasyLife extends Component {
   render() {
     return (
-      <Login />
+      // <Login />
+      <Menu />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+
 });
 
 AppRegistry.registerComponent('EasyLife', () => EasyLife);
