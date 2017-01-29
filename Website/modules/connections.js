@@ -27,7 +27,7 @@ let userModel = mongoose.model("User", UserSchema);
 
 let menuItemSchema = new Schema({
 	name: String,
-	category: String,
+	description: String,
 	price: Number
 });
 
@@ -188,5 +188,24 @@ module.exports.getUserById = function (email, callback) {
 		}
 
 		return callback(null, user);
+	});
+};
+
+module.exports.updateBill = function (bId, changes) {
+	billModel.findOneAndUpdate({bId: bId}, 'items', function (err, items) {
+		if (err) {
+			return err;
+		}
+
+		for (let i = 0; i < items.length; i++) {
+			for (let j = 0; j < changes.length; j++) {
+				if (items[i].name === changes[j].name) {
+					if (items[i].quantity != changes[j].quantity) {
+						items[i].quantity = changes[i].quantity;
+					}
+				}
+			}
+		}
+		return true;
 	});
 };

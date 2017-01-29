@@ -153,7 +153,7 @@ app.get('/api/bill/checkout', passport.authenticate("apiKeyStrat", {failureRedir
 
 app.post('/api/bill/update', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
 	function (req, res) {
-		res.json(Conn.updateBill(req.bosy.bId, req.body.changes));
+		res.json(Conn.updateBill(req.body.bId, req.body.changes));
 	});
 
 app.get('/api/unauthorized', function (req, res) {
