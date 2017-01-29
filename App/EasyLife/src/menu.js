@@ -1,11 +1,22 @@
 import React,{Component} from 'react';
 import {  StyleSheet, View,Text,Button} from 'react-native';
 
+import Listcard from './ListCard';
+
+
 export default class Menu extends Component{
+  constructor(props) {
+    super(props);
+    this.state = { total: "00.00"};
+    // this.update = this.update.bind(this);
+  }
+  update(){
+      // this.setState({total:counts.reduce((a,b)=>a+b)});
+  }
+
   render(){
     return(
       <View style={styles.container}>
-
       <View style={styles.statusbar}>
       </View>
       <View style={styles.restName}>
@@ -22,14 +33,14 @@ export default class Menu extends Component{
       <View style={styles.lineLight}>
       </View>
       <View style={styles.list}>
-
+      <Listcard/>
       </View>
 
       <View style={styles.lineLight}>
       </View>
       <View style={styles.footer}>
       <Text style={{width:80, fontSize:18, fontWeight:"200"}}> TOTAL: $ </Text>
-      <Text style={{width:120, fontSize:18, fontWeight:"200"}}> 00.00 </Text>
+      <Text style={{width:120, fontSize:18, fontWeight:"200"}}> {this.state.total} </Text>
       <Button
       onPress={this.onPressLearnMore}
       title="OVERVIEW"
@@ -41,6 +52,7 @@ export default class Menu extends Component{
     );
   }
 }
+
 const styles =StyleSheet.create({
   container:{
     flex:1,
