@@ -141,6 +141,21 @@ app.post('/api/restaurant/add', passport.authenticate("apiKeyStrat", {failureRed
 		});
 	});
 
+app.get('/api/bill/join', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		res.json(Conn.joinBillByBeaconID(req.body.bId, req.apiKey));
+	});
+
+app.get('/api/bill/checkout', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		res.json(Conn.checkoutBill(req.body.bId));
+	});
+
+app.post('/api/bill/update', passport.authenticate("apiKeyStrat", {failureRedirect: '/api/unauthorized'}),
+	function (req, res) {
+		res.json(Conn.updateBill(req.bosy.bId, req.body.changes));
+	});
+
 app.get('/api/unauthorized', function (req, res) {
 	res.json({message: "Unauthorized"});
 });

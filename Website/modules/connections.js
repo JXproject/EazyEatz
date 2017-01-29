@@ -52,7 +52,6 @@ let restaurantSchema = new Schema({
 let restaurantModel = mongoose.model('Restaurant', restaurantSchema);
 
 let billSchema = new Schema({
-	billId: {type: String, unique: true, index: true},
 	bId: String,
 	items: [itemSchema],
 	users: [{type: Schema.Types.ObjectId, ref: "User"}]
@@ -125,6 +124,16 @@ module.exports.restaurantByBeaconID = function (bID) {
 		}
 
 		return restaurant;
+	})
+};
+
+module.exports.joinBillByBeaconID = function (bID, apiKey) {
+	billModel.findOneAndUpdate({beaconId: bID}, 'billId items users', function (err, bill) {
+		if (err) {
+			return err;
+		}
+
+		return bill;
 	})
 };
 
