@@ -9,3 +9,5 @@ There were a few different challenges in the making of this project, mainly:
 * Git smashing all application files half way through the event
 * Estimote Beacons being locked to their registered owners (of whom we are not) 
 * A significant portion of the technologies utilized were new to the team
+
+![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/cover.png)
