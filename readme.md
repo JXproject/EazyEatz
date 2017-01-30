@@ -10,6 +10,9 @@ There were a few different challenges in the making of this project, mainly:
 * Estimote Beacons being locked to their registered owners (of whom we are not) 
 * A significant portion of the technologies utilized were new to the team
 
+#Solutions
+The EazyEats app was created using react-native which enabled us to have a cross-platform compatible app with minimal additional work. The backend of EazyEatz utilizes Node.JS and MongoDB, and is hosted off of Google's Cloud Platform. Due to the Estimotes being locked, our team tried to come up with an alternative solution to using the beacons by building an RFID card reader. Upon the readers detection of a smartphone, it connects back through the internet to the server to push the data to the user's phone (that otherwise would have been gotten from the beacon).
+
 #GUI screenshot
 ![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/cover.png)
 ![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/passcover.png)
