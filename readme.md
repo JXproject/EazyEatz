@@ -10,4 +10,7 @@ There were a few different challenges in the making of this project, mainly:
 * Estimote Beacons being locked to their registered owners (of whom we are not) 
 * A significant portion of the technologies utilized were new to the team
 
+#GUI screenshot
 ![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/cover.png)
+![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/passcover.png)
+![alt tag](https://github.com/chasehaddleton/EazyEatz/blob/master/readmeImage/menu.png)
